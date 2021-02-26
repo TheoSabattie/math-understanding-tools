@@ -1,0 +1,19 @@
+{
+  "name": "math-understanding-tools",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index",
+  "types": "dist/index",
+  "author": {
+    "name": "Théo Sabattié"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pixi.js": "6.0.0-rc.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.2"
+  }
+}
