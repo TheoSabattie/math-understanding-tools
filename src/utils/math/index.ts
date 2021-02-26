@@ -1,2 +1,2 @@
 export * from "./geom"
-export * from "./MathTools"
+export { default as MathTools } from "./MathTools"

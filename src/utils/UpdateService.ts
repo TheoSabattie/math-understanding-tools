@@ -2,7 +2,7 @@ export interface IUpdatable{
     update():void;
 }
 
-export class UpdateService {
+export default class UpdateService {
     private static _deltaTime:number;
     private static _allCallbacks:Array<()=>void> = []; 
 

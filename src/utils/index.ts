@@ -1,3 +1,3 @@
-export * from "./events/EventTypes"
+export {default as EventTypes} from "./events/EventTypes"
 export * from "./math"
-export * from "./UpdateService";
+export {default as UpdateService, IUpdatable} from "./UpdateService";
