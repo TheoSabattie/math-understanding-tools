@@ -1,5 +1,6 @@
-import EventTypes from "../../events/EventTypes";
-import MathTools from "../MathTools";
+import { EventEmitter } from "eventEmitter3"
+import { EventTypes } from "../../events/EventTypes";
+import { MathTools } from "../MathTools";
 
 export type Point = {
 	x:number,
@@ -9,7 +10,7 @@ export type Point = {
 /**
  * Observable vector, same things that vector, but all changes will be marked by an event
  */
-export default class OVector2 extends EventTarget
+export class OVector2 extends EventEmitter<EventTypes>
 {
 	protected _x:number;
 	protected _y:number;
@@ -26,7 +27,7 @@ export default class OVector2 extends EventTarget
 	}
 
     protected _dispatchChangeEvent():void {
-        this.dispatchEvent(new Event(EventTypes.CHANGE));
+        this.emit(EventTypes.CHANGE);
     }
     
 	/**

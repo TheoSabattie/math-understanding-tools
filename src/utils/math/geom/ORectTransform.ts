@@ -1,11 +1,12 @@
-import OVector2 from "./OVector2";
-import ORectangle from "./ORectangle";
-import EventTypes from "../../events/EventTypes";
+import { EventEmitter } from "eventEmitter3";
+import { OVector2 } from "./OVector2";
+import { ORectangle } from "./ORectangle";
+import { EventTypes } from "../../events/EventTypes";
 
 /**
  * Class to make responsive element
  */
-export default class ORectTransform extends EventTarget
+export class ORectTransform extends EventEmitter<EventTypes>
 {
     private static _rootRectTransforms:ORectTransform[] = [];
     private static _rootRectangle:ORectangle = new ORectangle();
@@ -34,7 +35,7 @@ export default class ORectTransform extends EventTarget
     }
     
     protected _dispatchChangeEvent():void {
-        this.dispatchEvent(new Event(EventTypes.CHANGE));
+        this.emit(EventTypes.CHANGE);
     }
     
 	/**
@@ -80,16 +81,16 @@ export default class ORectTransform extends EventTarget
             lPreviousParentChildren.splice(lIndex, 1);
         
         if (this._parent != null)
-            this._parent.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._parent.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         else 
-            ORectTransform._rootRectangle.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            ORectTransform._rootRectangle.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         this._parent = pValue;
         
         if (pValue != null)
-            pValue.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            pValue.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         else
-            ORectTransform._rootRectangle.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            ORectTransform._rootRectangle.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         let lNextParentChildren = (pValue == null) ? ORectTransform._rootRectTransforms : pValue._children;
         lNextParentChildren.push(this);
@@ -126,10 +127,10 @@ export default class ORectTransform extends EventTarget
     set anchorMin(pValue:OVector2) 
     {
         if (this._anchorMin != null)
-            this._anchorMin.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._anchorMin.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         this._anchorMin = pValue;
-        this._anchorMin.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._anchorMin.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         this._dispatchChangeEvent();
     }
     
@@ -146,10 +147,10 @@ export default class ORectTransform extends EventTarget
     set anchorMax(pValue:OVector2) 
     {
         if (this._anchorMax != null)
-            this._anchorMax.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._anchorMax.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         this._anchorMax = pValue;
-        this._anchorMax.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._anchorMax.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         this._dispatchChangeEvent();
     }
     
@@ -165,10 +166,10 @@ export default class ORectTransform extends EventTarget
     set anchoredPosition(pValue:OVector2) 
     {
         if (this._anchoredPosition != null)
-            this._anchoredPosition.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._anchoredPosition.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         this._anchoredPosition = pValue;
-        this._anchoredPosition.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._anchoredPosition.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         this._dispatchChangeEvent();
     }
     
@@ -184,10 +185,10 @@ export default class ORectTransform extends EventTarget
     set sizeDelta(pValue:OVector2) 
     {
         if (this._sizeDelta != null)
-            this._sizeDelta.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._sizeDelta.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         this._sizeDelta = pValue;
-        this._sizeDelta.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._sizeDelta.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         this._dispatchChangeEvent();
     }
     
@@ -203,10 +204,10 @@ export default class ORectTransform extends EventTarget
     set pivot(pValue:OVector2) 
     {
         if (this._pivot != null)
-            this._pivot.removeEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._pivot.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         
         this._pivot = pValue;
-        this._pivot.addEventListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._pivot.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
         this._dispatchChangeEvent();
     }
 }

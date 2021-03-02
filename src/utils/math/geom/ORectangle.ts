@@ -1,8 +1,9 @@
-import EventTypes from "../../events/EventTypes";
-import OVector2 from "./OVector2";
+import { EventEmitter } from "eventEmitter3"
+import { EventTypes } from "../../events/EventTypes";
+import { OVector2 } from "./OVector2";
 import { Point } from "./OVector2";
 
-export default class ORectangle extends EventTarget {
+export class ORectangle extends EventEmitter<EventTypes> {
     protected _xMin:number;
     protected _yMin:number;
     protected _width:number;
@@ -37,7 +38,7 @@ export default class ORectangle extends EventTarget {
     }
 
     protected _dispatchChangeEvent():void {
-        this.dispatchEvent(new Event(EventTypes.CHANGE));
+        this.emit(EventTypes.CHANGE);
     }
 
     get xMin():number {

@@ -1,7 +1,7 @@
 const DEG2RAD:number = Math.PI / 180;
 const RAD2DEG:number = 180 / Math.PI;
 
-export default class MathTools
+export class MathTools
 {
 	/**
 	 * Factor to multiply with to get radian from degree
