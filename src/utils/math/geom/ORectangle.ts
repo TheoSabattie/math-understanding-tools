@@ -37,6 +37,23 @@ export class ORectangle extends EventEmitter<EventTypes> {
         return this;
     }
 
+    /**
+	 * Set xMin, yMax, width, height then invoke EventTypes.CHANGE event
+     * @param pXMin 
+     * @param pYMin 
+     * @param pWidth 
+     * @param pHeight 
+	 * @returns the same instance to chain operations
+     */
+    public setTo(pXMin:number, pYMin:number, pWidth:number, pHeight:number):ORectangle {
+        this._xMin = pXMin;
+        this._yMin = pYMin;
+        this._width = pWidth;
+        this._height = pHeight;
+        this._dispatchChangeEvent();
+        return this;
+    }
+
     protected _dispatchChangeEvent():void {
         this.emit(EventTypes.CHANGE);
     }
