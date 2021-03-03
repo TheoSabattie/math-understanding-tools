@@ -9,7 +9,7 @@ const DEFAULT_FILL_STYLE:OFillStyle = new OFillStyle().setColor(0xFFFFFF);
 /**
  * Base class for drawing
  */
-export abstract class Graphic extends Container 
+export abstract class Graphic 
 {
     public static get defaultLineStyle():OLineStyle {
         return DEFAULT_LINE_STYLE;
@@ -34,18 +34,18 @@ export abstract class Graphic extends Container
 	 */
     public constructor(pContainer:Container) 
     {
-        super();
         this._graphics = new Graphics();
-        this.addChild(this._graphics);
+        pContainer.addChild(this._graphics);
 
-        pContainer.addChild(this);
         this._isListeningNextFrame = false;
-
         this._cellSize = 1;
-
         this.scheduleDraw();
     }
     
+    protected get graphics():Graphics{
+        return this._graphics;
+    }
+
     public get defaultLineStyle():OLineStyle {
         return Graphic.defaultLineStyle;
     }
