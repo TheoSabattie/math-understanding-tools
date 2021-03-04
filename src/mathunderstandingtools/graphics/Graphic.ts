@@ -132,7 +132,7 @@ export abstract class Graphic
 	/**
 	 * Shedule draw for next frame.
 	 */
-    protected scheduleDraw():void {
+    public scheduleDraw():void {
         if (!this._isListeningNextFrame){
             this._isListeningNextFrame = true;
             UpdateService.add(this._nextFrame);
