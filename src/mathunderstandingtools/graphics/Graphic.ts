@@ -139,7 +139,7 @@ export abstract class Graphic
         }
     }
     
-    protected _nextFrame():void 
+    protected _nextFrame = ():void=> 
     {
         this._isListeningNextFrame = false;
         UpdateService.remove(this._nextFrame);
