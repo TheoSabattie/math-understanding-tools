@@ -169,12 +169,12 @@ export abstract class Graphic
 	 * <p>Modification will automatically invoke scheduleDraw method</p>
 	 * @see scheduleDraw
 	 */
-    get cellSize():number
+    public get cellSize():number
     {
         return this._cellSize;
     }
     
-    set cellSize(pValue:number) 
+    public set cellSize(pValue:number) 
     {
         this._cellSize = pValue;
         this.scheduleDraw();
