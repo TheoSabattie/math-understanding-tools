@@ -81,16 +81,16 @@ export class ORectTransform extends EventEmitter<EventTypes>
             lPreviousParentChildren.splice(lIndex, 1);
         
         if (this._parent != null)
-            this._parent.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._parent.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         else 
-            ORectTransform._rootRectangle.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            ORectTransform._rootRectangle.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         this._parent = pValue;
         
         if (pValue != null)
-            pValue.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            pValue.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         else
-            ORectTransform._rootRectangle.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            ORectTransform._rootRectangle.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         let lNextParentChildren = (pValue == null) ? ORectTransform._rootRectTransforms : pValue._children;
         lNextParentChildren.push(this);
@@ -127,10 +127,10 @@ export class ORectTransform extends EventEmitter<EventTypes>
     set anchorMin(pValue:OVector2) 
     {
         if (this._anchorMin != null)
-            this._anchorMin.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._anchorMin.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         this._anchorMin = pValue;
-        this._anchorMin.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._anchorMin.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         this._dispatchChangeEvent();
     }
     
@@ -147,10 +147,10 @@ export class ORectTransform extends EventEmitter<EventTypes>
     set anchorMax(pValue:OVector2) 
     {
         if (this._anchorMax != null)
-            this._anchorMax.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._anchorMax.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         this._anchorMax = pValue;
-        this._anchorMax.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._anchorMax.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         this._dispatchChangeEvent();
     }
     
@@ -166,10 +166,10 @@ export class ORectTransform extends EventEmitter<EventTypes>
     set anchoredPosition(pValue:OVector2) 
     {
         if (this._anchoredPosition != null)
-            this._anchoredPosition.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._anchoredPosition.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         this._anchoredPosition = pValue;
-        this._anchoredPosition.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._anchoredPosition.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         this._dispatchChangeEvent();
     }
     
@@ -185,10 +185,10 @@ export class ORectTransform extends EventEmitter<EventTypes>
     set sizeDelta(pValue:OVector2) 
     {
         if (this._sizeDelta != null)
-            this._sizeDelta.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._sizeDelta.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         this._sizeDelta = pValue;
-        this._sizeDelta.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._sizeDelta.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         this._dispatchChangeEvent();
     }
     
@@ -204,10 +204,10 @@ export class ORectTransform extends EventEmitter<EventTypes>
     set pivot(pValue:OVector2) 
     {
         if (this._pivot != null)
-            this._pivot.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+            this._pivot.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         
         this._pivot = pValue;
-        this._pivot.addListener(EventTypes.CHANGE, this._dispatchChangeEvent);
+        this._pivot.addListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
         this._dispatchChangeEvent();
     }
 }

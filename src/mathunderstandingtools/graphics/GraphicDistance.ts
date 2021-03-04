@@ -173,10 +173,10 @@ export class GraphicDistance extends GraphicVector
     public set direction(pValue:OVector2) 
     {
         if (this._direction != null)
-            this._direction.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._direction.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this._direction = pValue;
-        this._direction.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._direction.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         this.scheduleDraw();
     }
     

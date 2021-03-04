@@ -43,10 +43,10 @@ export class GraphicLine extends Graphic
     public set from(pValue:OVector2) 
     {
         if (this._from != null)
-            this._from.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._from.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this._from = pValue;
-        this._from.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._from.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this.scheduleDraw();
     }
@@ -63,10 +63,10 @@ export class GraphicLine extends Graphic
     public set to(pValue:OVector2) 
     {
         if (this._to != null)
-            this._to.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._to.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this._to = pValue;
-        this._to.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._to.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         this.scheduleDraw();
     }
     

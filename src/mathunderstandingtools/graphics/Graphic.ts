@@ -98,12 +98,12 @@ export abstract class Graphic
     
     protected _setUsedFillStyle(pValue:OFillStyle):void {
         if (this._usedFillStyle != null){
-            this._usedFillStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._usedFillStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         }
         
         pValue = (pValue == null) ? this.defaultFillStyle : pValue;
         this._usedFillStyle = pValue;
-        this._usedFillStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._usedFillStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
     }
     
     protected _getUsedLineStyle():OLineStyle {
@@ -116,12 +116,12 @@ export abstract class Graphic
     
     protected _setUsedLineStyle(pValue:OLineStyle):void {
         if (this._usedLineStyle != null){
-            this._usedLineStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._usedLineStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         }
         
         pValue = (pValue == null) ? this.defaultLineStyle : pValue;
         this._usedLineStyle = pValue;
-        this._usedLineStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._usedLineStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
     }
     
     protected _onPropertyChanged():void

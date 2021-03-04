@@ -239,10 +239,10 @@ export class GraphicAngle extends Graphic
     
     public set origin(pValue:OVector2) {
         if (this._origin != null)
-			this._origin.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+			this._origin.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
             
         this._origin = pValue;
-        this._origin.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._origin.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
     }
     
 	/**

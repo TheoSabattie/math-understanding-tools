@@ -65,11 +65,11 @@ export abstract class GraphicShape extends Graphic
     
     public set position(pValue:OVector2) {
         if (this._position != null)
-            this._position.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._position.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this._position = pValue;
         
-        pValue.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        pValue.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
     }
     
 	/**
@@ -101,13 +101,13 @@ export abstract class GraphicShape extends Graphic
      */
     private _setUsedOriginLineStyle(pUsedOriginLineStyle:OLineStyle):void {
         if (this._usedOriginLineStyle != null)
-            this._usedOriginLineStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._usedOriginLineStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         if (pUsedOriginLineStyle == null)
             pUsedOriginLineStyle = this.defaultOriginLineStyle;
             
         this._usedOriginLineStyle = pUsedOriginLineStyle;
-        this._usedOriginLineStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._usedOriginLineStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
     }
     
     public get originLineStyle():OLineStyle 

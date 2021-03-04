@@ -40,7 +40,7 @@ export class Window extends Graphic
         this._masker = new Graphics();
         this._masker.visible = false;
 
-        this._rectTransform.addListener(EventTypes.CHANGE, this._onRectTransformChange);
+        this._rectTransform.addListener(EventTypes.CHANGE, this._onRectTransformChange, this);
 
         if (pParent instanceof Window)
             this._rectTransform.parent = pParent._rectTransform;

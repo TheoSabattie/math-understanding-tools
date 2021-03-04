@@ -39,11 +39,11 @@ export class GraphicText extends Graphic
     public set position(pValue:OVector2) 
     {
         if (this._position != null)
-            this._position.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._position.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this._position = pValue;
         
-        this._position.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._position.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         this.scheduleDraw();
     }
     
@@ -68,11 +68,11 @@ export class GraphicText extends Graphic
     public set pivot(pValue:OVector2) 
     {
         if (this._pivot != null)
-            this._pivot.removeListener(EventTypes.CHANGE, this._onPropertyChanged);
+            this._pivot.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
         this._pivot = pValue;
         
-        this._pivot.addListener(EventTypes.CHANGE, this._onPropertyChanged);
+        this._pivot.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         this.scheduleDraw();
     }
     
