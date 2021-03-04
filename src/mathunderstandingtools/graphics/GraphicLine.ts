@@ -13,13 +13,13 @@ export class GraphicLine extends Graphic
 
 	/**
 	 * The constructor of the Graphic class representing a Line
-	 * @param pContainer parent
+	 * @param pParent parent
 	 * @param pFrom where the line start
 	 * @param pTo where the line end
 	 */
-    public constructor(pContainer:Container, pFrom:OVector2, pTo:OVector2) 
+    public constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
     {
-        super(pContainer);
+        super(pParent);
         this.from = pFrom == null ? new OVector2() : pFrom;
         this.to   = pTo;
     }

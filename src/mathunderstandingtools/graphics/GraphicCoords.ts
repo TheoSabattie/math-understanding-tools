@@ -21,13 +21,13 @@ export class GraphicCoords extends GraphicLine
 
 	/**
 	 * The constructor of the Graphic class representing a Coordinate
-	 * @param pContainer parent
+	 * @param pParent parent
 	 * @param pFrom origin
 	 * @param pTo targeted position
 	 */
-    public constructor(pContainer:Container, pFrom:OVector2, pTo:OVector2) 
+    public constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
     {            
-        super(pContainer, pFrom, pTo);
+        super(pParent, pFrom, pTo);
         this._xText = new Text("");
         this._yText = new Text("");
         

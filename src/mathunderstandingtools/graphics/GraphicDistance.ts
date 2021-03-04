@@ -31,13 +31,13 @@ export class GraphicDistance extends GraphicVector
 
 	/**
 	 * The constructor of the Graphic class representing a Distance
-	 * @param pContainer parent
+	 * @param pParent parent
 	 * @param pFrom
 	 * @param pTo
 	 */
-    public constructor(pContainer:Container, pFrom:OVector2, pTo:OVector2) 
+    public constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
     {
-        super(pContainer, pFrom, pTo);
+        super(pParent, pFrom, pTo);
         this.direction     = new OVector2( -1, -1);
         this._distanceText = new Text("");
 		this._distanceText.style = {fontSize : 22 };

@@ -30,12 +30,12 @@ export abstract class Graphic
 	/**
 	 * Instanciate by giving container (parent).
 	 * <p>The objet will automatically add itself as child</p>
-	 * @param pContainer
+	 * @param pParent
 	 */
-    public constructor(pContainer:Container) 
+    public constructor(pParent:Container) 
     {
         this._graphics = new Graphics();
-        pContainer.addChild(this._graphics);
+        pParent.addChild(this._graphics);
 
         this._isListeningNextFrame = false;
         this._cellSize = 1;

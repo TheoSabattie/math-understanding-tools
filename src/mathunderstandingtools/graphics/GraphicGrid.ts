@@ -16,12 +16,12 @@ export class GraphicGrid extends Graphic
     
 	/**
 	 * The constructor of the Graphic class representing a Grid
-	 * @param {Container} pContainer parent
+	 * @param {Container} pParent parent
 	 * @param {number} pCellSize size of cells
 	 */
-    public constructor(pContainer:Container, pCellSize:number) 
+    public constructor(pParent:Container, pCellSize:number) 
     {
-        super(pContainer);
+        super(pParent);
         this.cellSize = pCellSize;
     }
     

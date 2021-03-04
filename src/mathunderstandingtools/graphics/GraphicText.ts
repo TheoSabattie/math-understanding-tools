@@ -15,11 +15,11 @@ export class GraphicText extends Graphic
     private _pivot:OVector2;
 
     /**
-     * @param pContainer 
+     * @param pParent 
      */
-    constructor(pContainer:Container) 
+    constructor(pParent:Container) 
     {
-        super(pContainer);
+        super(pParent);
         this._text = new Text("");
         this._textStyle = this._text.style = new TextStyle();
 		this._text.style.fontSize = 22;

@@ -14,13 +14,13 @@ export class GraphicVector extends GraphicLine
 
 	/**
 	 * The constructor of the Graphic class representing a Line
-	 * @param pContainer parent
+	 * @param pParent parent
 	 * @param pFrom the tail position of the vector
 	 * @param pTo the head position of the vector
 	 */
-    constructor(pContainer:Container, pFrom:OVector2, pTo:OVector2) 
+    constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
     {
-        super(pContainer, pFrom, pTo);
+        super(pParent, pFrom, pTo);
         this._arrowAngle = 45;
         this._arrowLength = 15;
     }
