@@ -41,10 +41,6 @@ export class Window extends Graphic
         this._masker.visible = false;
 
         this._rectTransform.addListener(EventTypes.CHANGE, this._onRectTransformChange, this);
-
-        if (pParent instanceof Window)
-            this._rectTransform.parent = pParent._rectTransform;
-        
         this._container.addChild(this.graphics)
         pParent.addChild(this._container);
         this._container.addChild(this._masker);
@@ -86,7 +82,7 @@ export class Window extends Graphic
 
         let lGlobalPosition = new Point(
             lRect.xMin + lRect.width  * lRectTransform.pivot.x + lRectTransform.anchoredPosition.x,
-            lRect.yMax  + lRect.height * lRectTransform.pivot.y + lRectTransform.anchoredPosition.y
+            lRect.yMin  + lRect.height * lRectTransform.pivot.y + lRectTransform.anchoredPosition.y
         );
         
         let lLocalPositionFromParent = this._container.parent == null ? lGlobalPosition : this._container.parent.toLocal(lGlobalPosition);
