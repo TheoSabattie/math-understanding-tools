@@ -7,7 +7,7 @@ import { Graphic } from "./Graphic";
  * ...
  * @author Théo Sabattié
  */
-class GraphicText extends Graphic
+export class GraphicText extends Graphic
 {
     private _text:Text;
     private _textStyle:TextStyle;
@@ -83,5 +83,3 @@ class GraphicText extends Graphic
         this._text.y    = this._position.y * this.cellSize - lTextBounds.height * this._pivot.y;
     }
 }
-
-export default GraphicText;
