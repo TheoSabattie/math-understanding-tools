@@ -1,23 +1,32 @@
-export interface IUpdatable{
+export interface IUpdatable {
     update():void;
 }
 
-export class UpdateService {
-    private static _deltaTime:number;
-    private static _allCallbacks:Array<()=>void> = []; 
+const idSymbol = Symbol("id");
+const symbolsToBindedUpdates:any = {};
+const allCallbacks:Array<()=>void> = []; 
+var deltaTime:number;
 
+function getIdSymbol(pObject:any) {
+    if (pObject[idSymbol] == undefined)
+        return pObject[idSymbol] = Symbol(pObject);
+    
+    return pObject[idSymbol];
+}
+
+export class UpdateService {
     public static get deltaTime():number {
-        return UpdateService._deltaTime;
+        return deltaTime;
     }
 
     /**
      * @param {number} pDeltaTime 
      */
     public static update(pDeltaTime:number):void {
-        UpdateService._deltaTime = pDeltaTime;
+        deltaTime = pDeltaTime;
 
-        let copy:Array<()=>void> = UpdateService._allCallbacks.slice(0);
-        let length:number        = UpdateService._allCallbacks.length;
+        let copy:Array<()=>void> = allCallbacks.slice(0);
+        let length:number        = allCallbacks.length;
 
         for (let i:number = 0; i < length; i++){
             copy[i]();
@@ -34,13 +43,18 @@ export class UpdateService {
 
         if (pUpdatable instanceof Function)
             lUpdate = pUpdatable;
-        else 
-            lUpdate = pUpdatable.update;
+        else {
+            if (symbolsToBindedUpdates[getIdSymbol(pUpdatable)] != null)
+                return false;
+            
+            lUpdate = pUpdatable.update.bind(pUpdatable);
+            symbolsToBindedUpdates[getIdSymbol(pUpdatable)] = lUpdate;
+        }
 
-        if (UpdateService._allCallbacks.indexOf(lUpdate) != -1)
+        if (allCallbacks.indexOf(lUpdate) != -1 || lUpdate == null)
             return false;
         
-        UpdateService._allCallbacks.push(lUpdate);
+        allCallbacks.push(lUpdate);
         return true;
     }
 
@@ -54,15 +68,17 @@ export class UpdateService {
 
         if (pUpdatable instanceof Function)
             lUpdate = pUpdatable;
-        else 
-            lUpdate = pUpdatable.update;
+        else{
+            lUpdate = symbolsToBindedUpdates[getIdSymbol(pUpdatable)];
+            delete symbolsToBindedUpdates[getIdSymbol(pUpdatable)];
+        }
         
-        let lIndex = UpdateService._allCallbacks.indexOf(lUpdate);
+        let lIndex = allCallbacks.indexOf(lUpdate);
 
         if (lIndex == -1)
             return false;
         
-        UpdateService._allCallbacks.splice(lIndex, 1);
+        allCallbacks.splice(lIndex, 1);
         return true;
     }
 }

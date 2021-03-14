@@ -8,7 +8,7 @@ class TestUpdatable implements IUpdatable {
     }
 
     public update():void {
-        if (this._doneCallback)
+        if (this._doneCallback != null)
             this._doneCallback();
     }
 }
