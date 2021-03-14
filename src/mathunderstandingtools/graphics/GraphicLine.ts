@@ -75,11 +75,11 @@ export class GraphicLine extends Graphic
 	 * <p>Modification will automatically invoke scheduleDraw method</p>
 	 * @see scheduleDraw
 	 */
-    public get length():number {
+    public get magnitude():number {
         return OVector2.distance(this._to, this._from);
     }
     
-    public set length(pValue:number) 
+    public set magnitude(pValue:number) 
     {
         let lFromToVector:OVector2 = OVector2.substract(this._to, this._from);
         lFromToVector.normalize(pValue);

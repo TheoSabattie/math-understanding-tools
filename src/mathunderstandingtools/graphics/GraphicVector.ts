@@ -33,20 +33,20 @@ export class GraphicVector extends GraphicLine
         
         let toToFrom:OVector2 = OVector2.substract(this.from, this.to);
         
-        if (toToFrom.length == 0)
+        if (toToFrom.magnitude == 0)
             return;
         
         let lFrom:OVector2 = new OVector2(this.from.x * this.cellSize, this.from.y * this.cellSize);
         let lTo:OVector2   = new OVector2(this.to.x * this.cellSize, this.to.y * this.cellSize);
         
         let lFromTo:OVector2 = OVector2.substract(lTo, lFrom);
-        lFromTo.normalize(lFromTo.length - this.arrowLength);
+        lFromTo.normalize(lFromTo.magnitude - this.arrowLength);
         lTo = OVector2.add(lFromTo, lFrom);
         
         this.graphics.moveTo(lFrom.x, lFrom.y);
         this.graphics.lineTo(lTo.x, lTo.y);
         
-        if (this.length > 0)
+        if (this.magnitude > 0)
             GraphicTools.arrowPointer(this.graphics, new OVector2(this.to.x * this.cellSize, this.to.y * this.cellSize), OVector2.substract(this.to, this.from), this.arrowAngle, this.safeArrowLength, lLineStyle);
     }
     
@@ -71,7 +71,7 @@ export class GraphicVector extends GraphicLine
 	 * <p>if the vector length is shorter than the arrow length, return vector length, if not, return the arrow length</p>
 	 */
     protected get safeArrowLength():number {
-        return Math.min(this._arrowLength, this.length * this.cellSize);
+        return Math.min(this._arrowLength, this.magnitude * this.cellSize);
     }
     
 	/**

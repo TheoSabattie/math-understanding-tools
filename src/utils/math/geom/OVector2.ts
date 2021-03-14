@@ -31,10 +31,10 @@ export class OVector2 extends EventEmitter<EventTypes>
     }
     
 	/**
-	 * The length of the line segment from (0,0) to this vector.
+	 * The magnitude (length) of this vector.
 	 * @returns 
 	 */
-    public get length ():number {
+    public get magnitude ():number {
         return Math.sqrt(this._x * this._x + this._y * this._y);
     }
     
@@ -54,7 +54,7 @@ export class OVector2 extends EventEmitter<EventTypes>
 	 * @return The distance between the first and second vectors.
 	 */
     public static distance(pA:Point, pB:Point):number {
-        return OVector2.substract(pA, pB).length;
+        return OVector2.substract(pA, pB).magnitude;
     }
     
 	/**
@@ -150,7 +150,7 @@ export class OVector2 extends EventEmitter<EventTypes>
     public static moveTowards(pA:Point, pB:Point, pDistance:number):OVector2 {
         let lAToB = OVector2.substract(pB, pA);
         
-        if (lAToB.length <= pDistance)
+        if (lAToB.magnitude <= pDistance)
             return new OVector2(pB.x, pB.y);
         
         lAToB.normalize(pDistance);
@@ -158,23 +158,23 @@ export class OVector2 extends EventEmitter<EventTypes>
     }
     
 	/**
-	 * Reduce the length of the given pA OPoint to pMaxLength if its length exceed pMaxLength
+	 * Reduce the magnitude (length) of the given pA OPoint to pMaxMagnitude if its magnitude exceed pMaxMagnitude
 	 * @param pA
-	 * @param pMaxLength
+	 * @param pMaxMagnitude
 	 * @returns a new instance of OVector2 resulting from the operation
 	 */
-    public static clampLength(pA:Point, pMaxLength:number):OVector2 {
-		return new OVector2(pA.x, pA.y).clampLength(pMaxLength);
+    public static clampMagnitude(pA:Point, pMaxMagnitude:number):OVector2 {
+		return new OVector2(pA.x, pA.y).clampMagnitude(pMaxMagnitude);
     }
 
 	/**
-	 * Reduce the length if its length exceed pMaxLength
-	 * @param pMaxLength
+	 * Reduce the magnitude (length) if its magnitude exceed pMaxMagnitude
+	 * @param pMaxMagnitude
 	 * @returns the same instance to chain operations
 	 */
-	public clampLength(pMaxLength:number):OVector2 {
-		if (this.length > pMaxLength)
-			this.normalize(pMaxLength);
+	public clampMagnitude(pMaxMagnitude:number):OVector2 {
+		if (this.magnitude > pMaxMagnitude)
+			this.normalize(pMaxMagnitude);
 		
 		return this;
 	}
@@ -204,7 +204,7 @@ export class OVector2 extends EventEmitter<EventTypes>
 	 * @param pVector 
 	 * @return
 	 */
-	public static getLength(pVector:Point):number {
+	public static getMagnitude(pVector:Point):number {
 		return Math.sqrt(pVector.x * pVector.x + pVector.y * pVector.y);
 	}
 
@@ -224,7 +224,7 @@ export class OVector2 extends EventEmitter<EventTypes>
 	 * @returns the same instance to chain operations
 	 */
     public normalize(pThickness:number = 1):OVector2 {
-        let lLength = this.length;
+        let lLength = this.magnitude;
         
         this._x /= lLength / pThickness;
         this._y /= lLength / pThickness;

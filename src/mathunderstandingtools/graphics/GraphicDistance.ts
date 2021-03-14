@@ -94,13 +94,13 @@ export class GraphicDistance extends GraphicVector
         let lMiddle:OVector2 = OVector2.lerp(lFromParallal, lToParallal, .5);
         
         this._distanceText.style.fill = lLineStyle.color;
-        this._distanceText.text = MathTools.roundTo(this.length, this._nDigit).toString();
+        this._distanceText.text = MathTools.roundTo(this.magnitude, this._nDigit).toString();
         let distanceTextBounds = this._distanceText.getBounds();
         this._distanceText.x = lMiddle.x - distanceTextBounds.width/2  + lPerpendicularDirection.x * (distanceTextBounds.height/2 + 10);
         this._distanceText.y = lMiddle.y - distanceTextBounds.height/2 + lPerpendicularDirection.y * (distanceTextBounds.height/2 + 10);
         
         // arrow pointers
-        if (this.length > 0){
+        if (this.magnitude > 0){
             GraphicTools.arrowPointer(this.graphics, lToParallal, lFromToTo, this.arrowAngle, this.safeArrowLength, lLineStyle);
             lFromToTo.x *= -1;
             lFromToTo.y *= -1;
