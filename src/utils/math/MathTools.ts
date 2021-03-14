@@ -91,11 +91,8 @@ export class MathTools
         
         if (pB > pA){
             return pA + pDistance;
-        } else if (pB < pA){
+        } else
             return pA - pDistance;
-        }
-        
-        return pB;
     }
     
 	/**
