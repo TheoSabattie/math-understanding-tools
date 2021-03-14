@@ -1,61 +1,100 @@
 import { IUpdatable, UpdateService } from "./UpdateService";
 
+class TestUpdatable implements IUpdatable {
+    private _doneCallback:(()=>void);
+    
+    public constructor(doneCallback?:(()=>void)){
+        this._doneCallback = doneCallback;
+    }
+
+    public update():void {
+        if (this._doneCallback)
+            this._doneCallback();
+    }
+}
+
 describe("UpdateService", () => {
-    it("add(pUpdatable) pUpdatable (as function) will be invoked when UpdateService.update has been called", done => {
-        function test(){
-            done();
-        }
-
-        UpdateService.add(test);
-        UpdateService.update(0.02);
-    });
-
-    it("add(pUpdatable) pUpdatable (as IUpdatable) will be invoked when UpdateService.update has been called", done => {
-        class Test implements IUpdatable {
-            update(): void {
+    describe("add(pUpdatable) pUpdatable (as function)", ()=>{
+        it ("pUpdatable is invoked when UpdateService.update is called", done => {
+            function test(){
                 done();
             }
-        }
+    
+            UpdateService.add(test);
+            UpdateService.update(0.02);
+        });
 
-        UpdateService.add(new Test());
-        UpdateService.update(0.02);
+        it ("pUpdatable can be added only once time", ()=>{
+            function test(){
+            }
+    
+            expect(UpdateService.add(test)).toBe(true);
+            expect(UpdateService.add(test)).toBe(false);
+        });
+    });
+
+    describe("add(pUpdatable) pUpdatable (as IUpdatable)", ()=>{
+        it ("pUpdatable.update is invoked when UpdateService.update is called", done => {
+            UpdateService.add(new TestUpdatable(done));
+            UpdateService.update(0.02);
+        });
+
+        it ("pUpdatable can be added only once time", ()=>{
+            let lUpdatable:TestUpdatable = new TestUpdatable();
+            expect(UpdateService.add(lUpdatable)).toBe(true);
+            expect(UpdateService.add(lUpdatable)).toBe(false);
+        });
     });
 
     it ("deltaTime will return the delta time between the current and the previous frame", done => {
-        let deltaTime:number = 0.02;
+        let lDeltaTime:number = 0.02;
 
         function test(){
-            expect(UpdateService.deltaTime).toBe(deltaTime);
+            expect(UpdateService.deltaTime).toBe(lDeltaTime);
             done();
         }
 
         UpdateService.add(test);
-        UpdateService.update(deltaTime);
+        UpdateService.update(lDeltaTime);
     });
 
-    it ("remove(pUpdatable) : The pUpdatable (as function) won't be invoked any more on UpdateService.update", done => {
-        function test(){
-            fail("Updatable has been invoked");
-        }
-
-        UpdateService.add(test);
-        UpdateService.remove(test);
-        UpdateService.update(0.02);
-        done();
-    });
-
-    it ("remove(pUpdatable) : The pUpdatable (as IUpdatable) won't be invoked any more on UpdateService.update", done => {
-        class Test implements IUpdatable {
-            update(): void {
+    describe ("remove(pUpdatable) : The pUpdatable (as function)", ()=>{
+        it ("pUpdatable is not invoked any more on UpdateService.update", done=>{
+            function test(){
                 fail("Updatable has been invoked");
             }
-        }
+    
+            UpdateService.add(test);
+            UpdateService.remove(test);
+            UpdateService.update(0.02);
+            done();
+        });
 
-        let test:Test = new Test();
+        it ("Returns true only if the pUpdatable is removed", ()=>{
+            function test(){
+                fail("Updatable has been invoked");
+            }
+    
+            UpdateService.add(test);
+            expect(UpdateService.remove(test)).toBe(true);
+            expect(UpdateService.remove(test)).toBe(false);
+        });
+    });
 
-        UpdateService.add(test);
-        UpdateService.remove(test);
-        UpdateService.update(0.02);
-        done();
-    })
+    describe("remove(pUpdatable) : The pUpdatable (as IUpdatable)", ()=>{
+        it("pUpdatable.update is not invoked any more on UpdateService.update", done => {
+            let lUpdatable:TestUpdatable = new TestUpdatable(()=>fail("Updatable has been invoked"));
+            UpdateService.add(lUpdatable);
+            UpdateService.remove(lUpdatable);
+            UpdateService.update(0.02);
+            done();
+        });
+
+        it ("Returns true only if the pUpdatable is removed", ()=>{
+            let lUpdatable:TestUpdatable = new TestUpdatable();
+            UpdateService.add(lUpdatable);
+            expect(UpdateService.remove(lUpdatable)).toBe(true);
+            expect(UpdateService.remove(lUpdatable)).toBe(false);
+        })
+    });
 });
