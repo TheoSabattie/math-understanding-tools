@@ -41,7 +41,7 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	/**
 	 * Return the computed rectangle
 	 */
-    get rect():ORectangle {
+    public get rect():ORectangle {
         let lParentRect = this.parentRect;
         let lAnchorRect = new ORectangle(
             lParentRect.xMin + lParentRect.width  * this.anchorMin.x, 
@@ -65,14 +65,14 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * null if that is a root RectTransform.
 	 * Changing parent will invoke EventTypes.CHANGE event.
 	 */
-    get parent():ORectTransform {
+    public get parent():ORectTransform {
         return this._parent;
     }
     
     /**
      * @param {ORectTransform} pValue
      */
-    set parent(pValue:ORectTransform){
+    public set parent(pValue:ORectTransform){
         let lPreviousParentChildren = (this._parent == null) ? ORectTransform._rootRectTransforms : this._parent._children;
         
         let lIndex = lPreviousParentChildren.indexOf(this);
@@ -100,14 +100,14 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	/**
 	 * Return children of the instance
 	 */
-    get children():ORectTransform[] {
+    public get children():ORectTransform[] {
         return this._children.slice(0);
     }
     
 	/**
 	 * Return the rect of the parent
 	 */
-    get parentRect():ORectangle
+    public get parentRect():ORectangle
     {
         if (this._parent)
             return this._parent.rect;
@@ -119,12 +119,12 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * Anchor min used with parentRect to compute rect.
 	 * <p>Modification on the property or the OVector2 will invoke EventTypes.CHANGE event.</p>
 	 */
-    get anchorMin():OVector2
+    public get anchorMin():OVector2
     {
         return this._anchorMin;
     }
     
-    set anchorMin(pValue:OVector2) 
+    public set anchorMin(pValue:OVector2) 
     {
         if (this._anchorMin != null)
             this._anchorMin.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
@@ -139,12 +139,12 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * <p>Modification on the property or the OVector2 will invoke EventTypes.CHANGE event.</p>
      * @type {OVector2}
 	 */
-    get anchorMax():OVector2 
+    public get anchorMax():OVector2 
     {
         return this._anchorMax;
     }
     
-    set anchorMax(pValue:OVector2) 
+    public set anchorMax(pValue:OVector2) 
     {
         if (this._anchorMax != null)
             this._anchorMax.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
@@ -158,12 +158,12 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * Anchored position is an offset used between anchor rect pivot and rect pivot.
 	 * <p>Modification on the property or the OVector2 will invoke EventTypes.CHANGE event.</p>
 	 */
-    get anchoredPosition():OVector2
+    public get anchoredPosition():OVector2
     {
         return this._anchoredPosition;
     }
     
-    set anchoredPosition(pValue:OVector2) 
+    public set anchoredPosition(pValue:OVector2) 
     {
         if (this._anchoredPosition != null)
             this._anchoredPosition.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
@@ -177,12 +177,12 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * Size Delta is an offset added to the anchor rect.
 	 * <p>Modification on the property or the OVector2 will invoke EventTypes.CHANGE event.</p>
 	 */
-    get sizeDelta():OVector2
+    public get sizeDelta():OVector2
     {
         return this._sizeDelta;
     }
     
-    set sizeDelta(pValue:OVector2) 
+    public set sizeDelta(pValue:OVector2) 
     {
         if (this._sizeDelta != null)
             this._sizeDelta.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);
@@ -196,12 +196,12 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * Pivot determine proportionnaly where is the origin.
 	 * <p>Modification on the property or the OVector2 will invoke EventTypes.CHANGE event.</p>
 	 */
-    get pivot():OVector2
+    public get pivot():OVector2
     {
         return this._pivot;
     }
     
-    set pivot(pValue:OVector2) 
+    public set pivot(pValue:OVector2) 
     {
         if (this._pivot != null)
             this._pivot.removeListener(EventTypes.CHANGE, this._dispatchChangeEvent, this);

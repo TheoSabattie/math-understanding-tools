@@ -290,12 +290,12 @@ export class OVector2 extends EventEmitter<EventTypes>
         return new OVector2(this._x, this._y);
     }
     
-    set x(pValue:number) {
+    public set x(pValue:number) {
         this._x = pValue;
         this._dispatchChangeEvent();
     }
     
-    set y(pValue:number) {
+    public set y(pValue:number) {
         this._y = pValue;
         this._dispatchChangeEvent();
     }
@@ -304,7 +304,7 @@ export class OVector2 extends EventEmitter<EventTypes>
 	 * The horizontal coordinate of the vector. The default value is 0.
 	 * <p>Modification will invoke EventTypes.CHANGE event</p>
 	 */
-    get x():number {
+    public get x():number {
         return this._x;
     }
     
@@ -312,7 +312,7 @@ export class OVector2 extends EventEmitter<EventTypes>
 	 * The vertical coordinate of the vector. The default value is 0.
 	 * <p>Modification will invoke EventTypes.CHANGE event</p>
 	 */
-    get y():number {
+    public get y():number {
         return this._y;
     }
     

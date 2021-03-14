@@ -58,75 +58,75 @@ export class ORectangle extends EventEmitter<EventTypes> {
         this.emit(EventTypes.CHANGE);
     }
 
-    get xMin():number {
+    public get xMin():number {
         return this._xMin;
     }
 
-    get yMin():number {
+    public get yMin():number {
         return this._yMin;
     }
 
-    get xCenter():number {
+    public get xCenter():number {
         return this._xMin + this._width/2;
     }
 
-    get yCenter():number {
+    public get yCenter():number {
         return this._yMin + this._height/2;
     }
 
-    set yMin(pValue:number){
+    public set yMin(pValue:number){
         this._yMin = pValue;
         this._dispatchChangeEvent();
     }
 
-    get width():number {
+    public get width():number {
         return this._width;
     }
 
-    get height():number {
+    public get height():number {
         return this._height;
     }
 
-    set width(pValue:number){
+    public set width(pValue:number){
         this._width = pValue;
         this._dispatchChangeEvent();
     }
 
-    set height(pValue:number){
+    public set height(pValue:number){
         this._height = pValue;
         this._dispatchChangeEvent();
     }
 
-    set xMin(pValue:number){
+    public set xMin(pValue:number){
         this._xMin = pValue;
         this._dispatchChangeEvent();
     }
 
-    get xMax ():number {
+    public get xMax ():number {
         return this._xMin + this._width;
     }
 
-    get yMax():number {
+    public get yMax():number {
         return this._yMin + this._height;
     }
 
-    set yMax(pValue:number){
+    public set yMax(pValue:number){
         this.height = pValue - this._yMin;
     }
 
-    set xMax(pValue:number){
+    public set xMax(pValue:number){
         this.width = pValue - this._xMin;
     }
 
-    get center():OVector2{
+    public get center():OVector2{
         return new OVector2(this.xCenter, this.yCenter);
     }
 
-    get min():OVector2{
+    public get min():OVector2{
         return new OVector2(this.xMin, this.yMin);
     }
 
-    get max():OVector2{
+    public get max():OVector2{
         return new OVector2(this.xMax, this.yMax);
     }
 
