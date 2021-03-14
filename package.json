@@ -9,6 +9,10 @@
         "package.json",
         "LICENSE"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TheoSabattie/math-understanding-tools.git"
+    },
     "author": {
         "name": "Théo Sabattié"
     },
