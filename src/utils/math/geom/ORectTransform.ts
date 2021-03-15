@@ -44,18 +44,18 @@ export class ORectTransform extends EventEmitter<EventTypes>
     public get rect():ORectangle {
         let lParentRect = this.parentRect;
         let lAnchorRect = new ORectangle(
-            lParentRect.xMin + lParentRect.width  * this.anchorMin.x, 
-            lParentRect.yMin + lParentRect.height * this.anchorMin.y, 
+            lParentRect.x + lParentRect.width  * this.anchorMin.x, 
+            lParentRect.y + lParentRect.height * this.anchorMin.y, 
             lParentRect.width  * (this.anchorMax.x - this.anchorMin.x), 
             lParentRect.height * (this.anchorMax.y - this.anchorMin.y));
         
         let lRect = lAnchorRect.clone();
-        lRect.xMin   -= this.sizeDelta.x * this.pivot.x;
-        lRect.yMin   -= this.sizeDelta.y * this.pivot.y;
+        lRect.x   -= this.sizeDelta.x * this.pivot.x;
+        lRect.y   -= this.sizeDelta.y * this.pivot.y;
         lRect.width  += this.sizeDelta.x;
         lRect.height += this.sizeDelta.y;
-        lRect.xMin   += this.anchoredPosition.x;
-        lRect.yMin   += this.anchoredPosition.y;
+        lRect.x   += this.anchoredPosition.x;
+        lRect.y   += this.anchoredPosition.y;
 
         return lRect;
     }

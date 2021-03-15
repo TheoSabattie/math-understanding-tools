@@ -81,8 +81,8 @@ export class Window extends Graphic
         let lRect = lRectTransform.rect;
 
         let lGlobalPosition = new Point(
-            lRect.xMin + lRect.width  * lRectTransform.pivot.x + lRectTransform.anchoredPosition.x,
-            lRect.yMin  + lRect.height * lRectTransform.pivot.y + lRectTransform.anchoredPosition.y
+            lRect.x + lRect.width  * lRectTransform.pivot.x + lRectTransform.anchoredPosition.x,
+            lRect.y  + lRect.height * lRectTransform.pivot.y + lRectTransform.anchoredPosition.y
         );
         
         let lLocalPositionFromParent = this._container.parent == null ? lGlobalPosition : this._container.parent.toLocal(lGlobalPosition);

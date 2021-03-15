@@ -1,11 +1,10 @@
 import { EventEmitter } from "eventEmitter3"
 import { EventTypes } from "../../events/EventTypes";
-import { OVector2 } from "./OVector2";
 import { Point } from "./OVector2";
 
 export class ORectangle extends EventEmitter<EventTypes> {
-    protected _xMin:number;
-    protected _yMin:number;
+    protected _x:number;
+    protected _y:number;
     protected _width:number;
     protected _height:number;
 
@@ -18,8 +17,8 @@ export class ORectangle extends EventEmitter<EventTypes> {
      */
     public constructor(pXMin:number = 0, pYMin:number = 0, pWidth:number = 0, pHeight:number = 0){
         super();
-        this._xMin   = pXMin;
-        this._yMin   = pYMin;
+        this._x      = pXMin;
+        this._y      = pYMin;
         this._width  = pWidth;
         this._height = pHeight;
     }
@@ -45,9 +44,9 @@ export class ORectangle extends EventEmitter<EventTypes> {
      * @param pHeight 
 	 * @returns the same instance to chain operations
      */
-    public setTo(pXMin:number, pYMin:number, pWidth:number, pHeight:number):ORectangle {
-        this._xMin = pXMin;
-        this._yMin = pYMin;
+    public setMinAndSize(pXMin:number, pYMin:number, pWidth:number, pHeight:number):ORectangle {
+        this._x = pXMin;
+        this._y = pYMin;
         this._width = pWidth;
         this._height = pHeight;
         this._dispatchChangeEvent();
@@ -58,33 +57,87 @@ export class ORectangle extends EventEmitter<EventTypes> {
         this.emit(EventTypes.CHANGE);
     }
 
-    public get xMin():number {
-        return this._xMin;
+    /**
+     * The min x of the rectangle. When this property is updated, the size of the rectangle is not modified.
+     */
+    public get x():number {
+        return this._x;
     }
 
-    public get yMin():number {
-        return this._yMin;
-    }
-
-    public get xCenter():number {
-        return this._xMin + this._width/2;
-    }
-
-    public get yCenter():number {
-        return this._yMin + this._height/2;
-    }
-
-    public set yMin(pValue:number){
-        this._yMin = pValue;
+    public set x(pValue:number){
+        this._x = pValue;
         this._dispatchChangeEvent();
     }
 
-    public get width():number {
-        return this._width;
+    /**
+     * The min y of the rectangle. When this property is updated, the size of the rectangle is not modified. 
+     */
+    public get y():number {
+        return this._y;
     }
 
-    public get height():number {
-        return this._height;
+    public set y(pValue:number){
+        this._y = pValue;
+        this._dispatchChangeEvent();
+    }
+
+    /**
+     * The min x of the rectangle. When this property is updated, the size of the rectangle is modified to keep the same xMax.
+     */
+    public get xMin():number {
+        return this._x;
+    }
+
+    public set xMin(pValue:number){
+        let lXMax:number = this.xMax;
+        this._x = pValue;
+        this._width = lXMax - pValue;
+        this._dispatchChangeEvent();
+    }
+
+    /**
+     * The min y of the rectangle. When this property is updated, the size of the rectangle is modified to keep the same yMax.
+     */
+    public get yMin():number {
+        return this._y;
+    }
+
+    public set yMin(pValue:number){
+        let lYMax:number = this.yMax;
+        this._y = pValue;
+        this._height = lYMax - pValue;
+        this._dispatchChangeEvent();
+    }
+
+    /**
+     * The x center of the rectangle. When this property is updated, the size of the rectangle is not modified.
+     */
+    public get xCenter():number {
+        return this._x + this._width/2;
+    }
+
+    public set xCenter(pValue:number) {
+        this._x = pValue - this._width/2;
+        this._dispatchChangeEvent();
+    }
+
+    /**
+     * The y center of the rectangle. When this property is updated, the size of the rectangle is not modified.
+     */
+    public get yCenter():number {
+        return this._y + this._height/2;
+    }
+
+    public set yCenter(pValue:number){
+        this._y = pValue - this._height/2;
+        this._dispatchChangeEvent();
+    }
+
+    /**
+     * The width of the rectangle. When this property is updated, xMin keeps the same value. xMax is updated.
+     */
+    public get width():number {
+        return this._width;
     }
 
     public set width(pValue:number){
@@ -92,42 +145,50 @@ export class ORectangle extends EventEmitter<EventTypes> {
         this._dispatchChangeEvent();
     }
 
+    /**
+     * The height of the rectangle. When this property is updated, yMin keeps the same value. yMax is updated.
+     */
+    public get height():number {
+        return this._height;
+    }
+
     public set height(pValue:number){
         this._height = pValue;
         this._dispatchChangeEvent();
     }
 
-    public set xMin(pValue:number){
-        this._xMin = pValue;
-        this._dispatchChangeEvent();
-    }
-
+    /**
+     * The max x of the rectangle. When this property is updated, the size of the rectangle is modified to keep the same xMin.
+     */
     public get xMax ():number {
-        return this._xMin + this._width;
+        return this._x + this._width;
     }
 
+    public set yMax(pValue:number) {
+        this.height = pValue - this._y;
+    }
+
+    /**
+     * The max y of the rectangle. When this property is updated, the size of the rectangle is modified to keep the same yMin.
+     */
     public get yMax():number {
-        return this._yMin + this._height;
+        return this._y + this._height;
     }
 
-    public set yMax(pValue:number){
-        this.height = pValue - this._yMin;
+    public set xMax(pValue:number) {
+        this.width = pValue - this._x;
     }
 
-    public set xMax(pValue:number){
-        this.width = pValue - this._xMin;
+    public get center():Point {
+        return {x:this.xCenter, y:this.yCenter};
     }
 
-    public get center():OVector2{
-        return new OVector2(this.xCenter, this.yCenter);
+    public get min():Point {
+        return {x : this.x, y:this.y};
     }
 
-    public get min():OVector2{
-        return new OVector2(this.xMin, this.yMin);
-    }
-
-    public get max():OVector2{
-        return new OVector2(this.xMax, this.yMax);
+    public get max():Point {
+        return {x:this.xMax, y:this.yMax};
     }
 
     /**
@@ -136,7 +197,7 @@ export class ORectangle extends EventEmitter<EventTypes> {
      * @returns {boolean}
      */
     public contains(pPoint:Point):boolean {
-        return pPoint.x >= this.xMin && pPoint.x <= this.xMax && pPoint.y >= this.yMin && pPoint.y <= this.yMax; 
+        return pPoint.x >= this.x && pPoint.x <= this.xMax && pPoint.y >= this.y && pPoint.y <= this.yMax; 
     }
 
     /**
@@ -144,7 +205,7 @@ export class ORectangle extends EventEmitter<EventTypes> {
      * @returns {ORectangle}
      */
     public clone():ORectangle {
-        return new ORectangle(this.xMin, this.yMin, this.width, this.height);
+        return new ORectangle(this.x, this.y, this.width, this.height);
     }
 
     /**
@@ -153,6 +214,6 @@ export class ORectangle extends EventEmitter<EventTypes> {
      * @returns {boolean} 
      */
     public equals(pRectangle:ORectangle):boolean {
-        return this.xMin == pRectangle.xMin && this.yMin == pRectangle.yMin && this.width == pRectangle.width && this.height == pRectangle.height;
+        return this.x == pRectangle.x && this.y == pRectangle.y && this.width == pRectangle.width && this.height == pRectangle.height;
     }
 }
