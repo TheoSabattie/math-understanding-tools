@@ -106,5 +106,11 @@ describe("MathTools", () => {
         it("isClose returns false if the distance between pA and pB exceed pThreeshold", ()=>{
             expect(MathTools.isClose(4, 5, .5)).toBe(false);
         });
+
+        it("pThreeshold default value is 0.01", ()=>{
+            expect(MathTools.isClose(4, 5)).toBe(false);
+            expect(MathTools.isClose(4, 4.01)).toBe(true);
+            expect(MathTools.isClose(4, 4.0101)).toBe(false);
+        });
     });
 });
