@@ -219,15 +219,25 @@ export class OVector2 extends EventEmitter<EventTypes>
 
 	/**
 	 * Scales the line segment between (0,0) and the current vector to a set length. Then dispatch EventTypes.CHANGE event.
-	 * @param pThickness The scaling value. For example, if the current vector is (0,5), 
+	 * @param pMagnitude The scaling value. For example, if the current vector is (0,5), 
 	 *   and you normalize it to 1, the vector returned is at (0,1).
 	 * @returns the same instance to chain operations
 	 */
-    public normalize(pThickness:number = 1):OVector2 {
-        let lLength = this.magnitude;
+    public normalize(pMagnitude:number = 1):OVector2 {
+		pMagnitude = Math.max(pMagnitude, 0);
+        let lCurrentMagnitude = this.magnitude;
         
-        this._x /= lLength / pThickness;
-        this._y /= lLength / pThickness;
+		if (pMagnitude == 0){
+			this._x = this._y = 0;
+		} else {
+			if (lCurrentMagnitude == 0){
+				console.warn("Cannot normalize a zero vector because there is no direction.");
+				return this;
+			} else {
+				this._x /= lCurrentMagnitude / pMagnitude;
+				this._y /= lCurrentMagnitude / pMagnitude;
+			}
+		}
         
         this._dispatchChangeEvent();
 		return this;
