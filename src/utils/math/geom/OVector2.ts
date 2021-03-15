@@ -210,11 +210,11 @@ export class OVector2 extends EventEmitter<EventTypes>
 
 	/**
 	 * @param pVector 
-	 * @param pLength 
+	 * @param pMagnitude 
 	 * @returns a new instance of OVector2 resulting from the operation
 	 */
-	public static normalize(pVector:Point, pLength:number = 1):OVector2 {
-		return new OVector2(pVector.x, pVector.y).normalize(pLength);
+	public static normalize(pVector:Point, pMagnitude:number = 1):OVector2 {
+		return new OVector2(pVector.x, pVector.y).normalize(pMagnitude);
 	}
 
 	/**
