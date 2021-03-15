@@ -245,13 +245,12 @@ export class OVector2 extends EventEmitter<EventTypes>
     
 	/**
 	 * Converts a pair of polar coordinates to a Cartesian vector coordinate.
-	 * @param pLength	The length coordinate of the polar pair.
+	 * @param pMagnitude	The length coordinate of the polar pair.
 	 * @param pAngle	The angle, in radians, of the polar pair.
 	 * @return The Cartesian vector.
 	 */
-    public static polar(pLength:number, pAngle:number):OVector2 {
-        let lRadian = pAngle * MathTools.DEG2RAD;
-        return new OVector2(Math.cos(lRadian) * pLength, Math.sin(lRadian) * pLength);
+    public static polar(pMagnitude:number, pAngle:number):OVector2 {
+        return new OVector2(Math.cos(pAngle) * pMagnitude, Math.sin(pAngle) * pMagnitude);
     }
     
 	/**
