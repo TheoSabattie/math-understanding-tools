@@ -3,9 +3,9 @@
 
 # Purpose of the project
 
-math-understanding-tools has been developed to make demonstration about mathematics. 
+math-understanding-tools has been developed to make demonstration about mathematics.  
 The core project is based on [pixiJS](https://www.pixijs.com/).  
-It allows to draw some vectors, basic shapes, line, grids, angle, measurement, coordinates (...) 
+It allows to draw some vectors, basic shapes, line, grids, angle, measurement, coordinates (...)  
 If you are seaching how to explain/represent/draw cos/sin, normalization, etc... to your student, friends, community, (...) you can use this library to simplify the development of your demonstration.
 
 ## Setup
@@ -37,7 +37,7 @@ function init(_:Event):void {
 }
 
 function resize(_?:Event):void {
-	app.renderer.resize(window.innerWidth, window.innerHeight);
+    app.renderer.resize(window.innerWidth, window.innerHeight);
 }
 ```
 
@@ -45,7 +45,7 @@ function resize(_?:Event):void {
 To setup your development environment with the simpliest way, consider using [vitejs](https://vitejs.dev/guide/), [snowpack](https://www.snowpack.dev/tutorials/quick-start) or other solutions.
 
 ## Benefit of OClass
-If you would like to animate your mathematic demo, you can use a tween lib.
+If you would like to animate your mathematic demo, you can use a tween lib.  
 The targeted Graphic will schedule a draw in the next frame when a change has been detected.
 
 Let's using [GSAP](https://greensock.com/get-started/) and change the init fonction in the previous code snippet:
@@ -84,14 +84,14 @@ let shape:GraphicShape = new GraphicShape(/*aContainerInstance*/);
 shape.defaultFillStyle;
 ```
 
-The Style object is the same for all instance and return from defaultFillStyleProperty.  
+The Style object returned by defaultFillStyleProperty is the same for all instance.  
   
 If you wish that a particular instance has its own style, consider using following property:  
 `shape.fillStyle`  
   
 Note: internally, if the fillStyle (or lineStyle) property is not use, the graphic will use the defaultFillStyle.  
 When you affect a value to fillStyle property or if you use directly the property, the used style becomes the fillStyle.  
-If you desire after editing a fillStyle property to go back to defaultFillStyle to make your instance looks like the others, affect null to fillStyle property or defaultFillStyle.  
+If you desire after editing a fillStyle property to go back to defaultFillStyle to make your instance looks like the others, affect null or defaultFillStyle to fillStyle property.  
 ```ts
 // I would like to shape has its own fill style, so, let's using fillStyle prop :
 shape.fillStyle.color = 0xFF0000;
