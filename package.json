@@ -17,6 +17,7 @@
     "author": {
         "name": "Théo Sabattié"
     },
+    "license": "MIT",
     "scripts": {
         "build": "tsc",
         "test": "jest",
