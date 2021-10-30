@@ -1,6 +1,6 @@
 {
     "name": "math-understanding-tools",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "description": "",
     "main": "dist/index",
     "types": "dist/index",
