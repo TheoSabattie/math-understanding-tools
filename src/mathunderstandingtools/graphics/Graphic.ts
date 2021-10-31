@@ -20,11 +20,11 @@ export abstract class Graphic
     }
     
     private _graphics:Graphics;
-    private _lineStyle:OLineStyle;
-    private _fillStyle:OFillStyle;
+    private _lineStyle:OLineStyle|null = null;
+    private _fillStyle:OFillStyle|null = null;
     private _isListeningNextFrame:boolean;
-    private _usedLineStyle:OLineStyle;
-    private _usedFillStyle:OFillStyle;
+    private _usedLineStyle:OLineStyle|null = null;
+    private _usedFillStyle:OFillStyle|null = null;
     private _cellSize:number;
 
 	/**
@@ -63,7 +63,7 @@ export abstract class Graphic
         return this._fillStyle;
     }
 
-    public set fillStyle(pValue:OFillStyle) {
+    public set fillStyle(pValue:OFillStyle|null) {
         if (pValue == this.defaultFillStyle)
             pValue = null;
         
@@ -80,7 +80,7 @@ export abstract class Graphic
         return this._lineStyle;
     }
     
-    public set lineStyle(pValue:OLineStyle) {
+    public set lineStyle(pValue:OLineStyle|null) {
         if (pValue == this.defaultLineStyle)
             pValue = null;
         
@@ -93,10 +93,10 @@ export abstract class Graphic
             this._setUsedFillStyle((this._fillStyle != null) ? this._fillStyle : this.defaultFillStyle);
         }
         
-        return this._usedFillStyle;
+        return <OFillStyle>this._usedFillStyle;
     }
     
-    protected _setUsedFillStyle(pValue:OFillStyle):void {
+    protected _setUsedFillStyle(pValue:OFillStyle|null):void {
         if (this._usedFillStyle != null){
             this._usedFillStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         }
@@ -111,10 +111,10 @@ export abstract class Graphic
             this._setUsedLineStyle((this._lineStyle != null) ? this._lineStyle : this.defaultLineStyle);
         }
         
-        return this._usedLineStyle;
+        return <OLineStyle>this._usedLineStyle;
     }
     
-    protected _setUsedLineStyle(pValue:OLineStyle):void {
+    protected _setUsedLineStyle(pValue:OLineStyle|null):void {
         if (this._usedLineStyle != null){
             this._usedLineStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         }

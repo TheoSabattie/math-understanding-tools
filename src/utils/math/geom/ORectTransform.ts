@@ -15,22 +15,22 @@ export class ORectTransform extends EventEmitter<EventTypes>
         return ORectTransform._rootRectangle;
     }
 
-    protected _children:ORectTransform[] = [];
-    protected _anchorMin:OVector2;
-    protected _anchorMax:OVector2;
-    protected _anchoredPosition:OVector2;
-    protected _sizeDelta:OVector2;
-    protected _pivot:OVector2;
-    protected _parent:ORectTransform;
+    protected _children:ORectTransform[]  = [];
+    protected _anchorMin:OVector2         = new OVector2();
+    protected _anchorMax:OVector2         = new OVector2();
+    protected _anchoredPosition:OVector2  = new OVector2();
+    protected _sizeDelta:OVector2         = new OVector2();
+    protected _pivot:OVector2             = new OVector2();
+    protected _parent:ORectTransform|null = null;
 
     public constructor() 
     {
         super();
-        this.anchorMin        = new OVector2();
-        this.anchorMax        = new OVector2();
-        this.anchoredPosition = new OVector2();
-        this.sizeDelta        = new OVector2();
-        this.pivot            = new OVector2();
+        this.anchorMin        = this._anchorMin;
+        this.anchorMax        = this._anchorMax;
+        this.anchoredPosition = this._anchoredPosition;
+        this.sizeDelta        = this._sizeDelta;
+        this.pivot            = this._pivot;
         this.parent           = null;
     }
     
@@ -65,14 +65,14 @@ export class ORectTransform extends EventEmitter<EventTypes>
 	 * null if that is a root RectTransform.
 	 * Changing parent will invoke EventTypes.CHANGE event.
 	 */
-    public get parent():ORectTransform {
+    public get parent():ORectTransform|null {
         return this._parent;
     }
     
     /**
      * @param {ORectTransform} pValue
      */
-    public set parent(pValue:ORectTransform){
+    public set parent(pValue:ORectTransform|null){
         let lPreviousParentChildren = (this._parent == null) ? ORectTransform._rootRectTransforms : this._parent._children;
         
         let lIndex = lPreviousParentChildren.indexOf(this);
