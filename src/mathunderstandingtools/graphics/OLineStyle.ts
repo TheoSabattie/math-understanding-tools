@@ -5,8 +5,8 @@ export class OLineStyle extends OStyle
 {
     protected _width:number;
     protected _native:boolean;
-    protected _cap:LINE_CAP;
-    protected _join:LINE_JOIN;
+    protected _cap:LINE_CAP|undefined;
+    protected _join:LINE_JOIN|undefined;
     protected _miterLimit:number;
     protected _alignement:number;
 
@@ -15,8 +15,8 @@ export class OLineStyle extends OStyle
         super();
         this._width      = 1;
         this._native     = false;
-        this._cap        = null;
-        this._join       = null;
+        this._cap        = undefined;
+        this._join       = undefined;
         this._miterLimit = 10;
         this._alignement = 0.5;
     }
@@ -124,12 +124,12 @@ export class OLineStyle extends OStyle
     /**
      * Cap used for line
      */
-    public get cap():LINE_CAP
+    public get cap():LINE_CAP|undefined
     {
         return this._cap;
     }
     
-    public set cap(pValue:LINE_CAP) 
+    public set cap(pValue:LINE_CAP|undefined) 
     {
         if (!this._isValidCap(pValue))
             throw new Error("pValue \"" + pValue + "\" is not a valid value for caps, use CapsStyle constants to prevent error. null is accepted.");
@@ -141,12 +141,12 @@ export class OLineStyle extends OStyle
     /**
      * Join used for line
      */
-    public get join():LINE_JOIN
+    public get join():LINE_JOIN|undefined
     {
         return this._join;
     }
     
-    public set join(pValue:LINE_JOIN)
+    public set join(pValue:LINE_JOIN|undefined)
     {
         if (!this._isValidJoin(pValue))
             throw new Error("pValue \"" + pValue + "\" is not a valid value for joins, use JoinStyle constants to prevent error. null is accepted.");
@@ -174,7 +174,7 @@ export class OLineStyle extends OStyle
      * @param pCap 
      * @returns true if the pCap is valid
      */
-    protected _isValidCap(pCap:LINE_CAP):boolean
+    protected _isValidCap(pCap:LINE_CAP|undefined):boolean
     {
         if (pCap == null)
             return true; 
@@ -187,7 +187,7 @@ export class OLineStyle extends OStyle
      * @param pJoin
      * @returns true if the pJoin is valid
      */
-    protected _isValidJoin(pJoin:LINE_JOIN):boolean 
+    protected _isValidJoin(pJoin:LINE_JOIN|undefined):boolean 
     {
         if (pJoin == null)
             return true;

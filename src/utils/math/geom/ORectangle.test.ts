@@ -17,7 +17,6 @@ describe("ORectangle", ()=>{
 
     afterEach(()=>{
         lRectangle.removeAllListeners();
-        lRectangle = null;
         lRectAsAny = null;
     });
 

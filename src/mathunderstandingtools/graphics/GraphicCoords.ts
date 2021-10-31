@@ -25,7 +25,7 @@ export class GraphicCoords extends GraphicLine
 	 * @param pFrom origin
 	 * @param pTo targeted position
 	 */
-    public constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
+    public constructor(pParent:Container, pFrom:OVector2|null, pTo:OVector2) 
     {            
         super(pParent, pFrom, pTo);
         this._xText = new Text("");

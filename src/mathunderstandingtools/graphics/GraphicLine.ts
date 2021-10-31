@@ -17,7 +17,7 @@ export class GraphicLine extends Graphic
 	 * @param pFrom where the line start
 	 * @param pTo where the line end
 	 */
-    public constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
+    public constructor(pParent:Container, pFrom:OVector2|null, pTo:OVector2) 
     {
         super(pParent);
         this.from = pFrom == null ? new OVector2() : pFrom;

@@ -198,7 +198,7 @@ export class MathMap
 	 * @param pPosition the origin of the shape
 	 * @return the created GraphicText
 	 */
-    public addText(pPosition:OVector2 = null):GraphicText {
+    public addText(pPosition:OVector2|null = null):GraphicText {
         let lText = new GraphicText(this._textsContainer);
 		
 		if (pPosition != null)
@@ -215,7 +215,7 @@ export class MathMap
 	 * @param pOrigin the origin
 	 * @return the created GraphicCoords
 	 */
-    public addCoords(pPosition:OVector2, pOrigin:OVector2 = null):GraphicCoords 
+    public addCoords(pPosition:OVector2, pOrigin:OVector2|null = null):GraphicCoords 
     {
         let lCoords = new GraphicCoords(this._coordsContainer, pOrigin, pPosition);
         lCoords.cellSize = this.cellSize;

@@ -1,7 +1,7 @@
 import { IUpdatable, UpdateService } from "./UpdateService";
 
 class TestUpdatable implements IUpdatable {
-    private _doneCallback:(()=>void);
+    private _doneCallback:(()=>void)|undefined;
     
     public constructor(doneCallback?:(()=>void)){
         this._doneCallback = doneCallback;

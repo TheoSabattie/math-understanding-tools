@@ -30,7 +30,7 @@ export abstract class GraphicShape extends Graphic
     private _originLength:number;
     private _position:OVector2;
     private _usedOriginLineStyle:OLineStyle;
-    private _originLineStyle:OLineStyle;
+    private _originLineStyle:OLineStyle|null;
 
 	/**
 	 * The constructor of the Graphic class representing a GraphicShape
@@ -99,7 +99,7 @@ export abstract class GraphicShape extends Graphic
     /**
      * @param pUsedOriginLineStyle 
      */
-    private _setUsedOriginLineStyle(pUsedOriginLineStyle:OLineStyle):void {
+    private _setUsedOriginLineStyle(pUsedOriginLineStyle:OLineStyle|null):void {
         if (this._usedOriginLineStyle != null)
             this._usedOriginLineStyle.removeListener(EventTypes.CHANGE, this._onPropertyChanged, this);
         
@@ -120,7 +120,7 @@ export abstract class GraphicShape extends Graphic
         return this._originLineStyle;
     }
     
-    public set originLineStyle(pValue:OLineStyle) 
+    public set originLineStyle(pValue:OLineStyle|null) 
     {
         if (pValue == this.defaultOriginLineStyle)
             pValue = null;

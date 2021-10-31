@@ -18,7 +18,7 @@ export class GraphicVector extends GraphicLine
 	 * @param pFrom the tail position of the vector
 	 * @param pTo the head position of the vector
 	 */
-    constructor(pParent:Container, pFrom:OVector2, pTo:OVector2) 
+    constructor(pParent:Container, pFrom:OVector2|null, pTo:OVector2) 
     {
         super(pParent, pFrom, pTo);
         this._arrowAngle = 45;

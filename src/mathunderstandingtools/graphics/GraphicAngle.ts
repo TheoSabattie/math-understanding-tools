@@ -264,12 +264,12 @@ export class GraphicAngle extends Graphic
 	/**
 	 * Color used for the text.
 	 */
-    public get textColor():TextStyleFill 
+    public get textColor():TextStyleFill|undefined 
     {
         return this._angleText.style.fill;
     }
     
-    public set textColor(pValue:TextStyleFill) 
+    public set textColor(pValue:TextStyleFill|undefined) 
     {
         this._angleText.style.fill = pValue;
     }

@@ -5,7 +5,7 @@ describe("OVector2", ()=>{
     let lX:number   = 2;
     let lY:number   = 4;
     let lMagnitudeA:number = Math.sqrt(lX*lX + lY*lY);
-    let lVector2A:OVector2;
+    let lVector2A:OVector2 = new OVector2();
     let lVector2AsAny:any;
 
     beforeEach(()=>{
@@ -15,7 +15,6 @@ describe("OVector2", ()=>{
 
     afterEach(()=>{
         lVector2A.removeAllListeners();
-        lVector2A = null;
         lVector2AsAny = null;
     });
 
