@@ -8,6 +8,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
+    "strictPropertyInitialization": false,
     "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
