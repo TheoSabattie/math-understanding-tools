@@ -42,26 +42,50 @@ export class MathTools
 	}
     
     /**
-	 * Linear interpolation between pMin and pMax using pCoeff factor
+	 * Linear interpolation between pFrom and pTo using pCoeff factor
      * pCoeff will be clamped between 0 and 1
-     * @param {number} pMin
-     * @param {number} pMax
+     * @param {number} pFrom
+     * @param {number} pTo
      * @param {number} pCoeff
      * @return {number}
      */
-    public static lerp(pMin:number, pMax:number, pCoeff:number):number {
-		return MathTools.lerpUnclamped(pMin, pMax, MathTools.clamp(pCoeff));
+    public static lerp(pFrom:number, pTo:number, pCoeff:number):number {
+		return MathTools.lerpUnclamped(pFrom, pTo, MathTools.clamp(pCoeff));
+	}
+
+	/**
+	 * Linear interpolation between pFrom Color and pTo Color using pCoeff factor (lerpColor decomposes RGB channels to make smooth transition)
+     * Note: pCoeff is not clamped between 0 and 1
+	 * @param {number} pFrom 
+	 * @param {number} pTo 
+	 * @param {number} pCoeff 
+	 * @returns {number} 
+	 */
+	public static lerpColor(pFrom:number, pTo:number, pCoeff:number):number {
+		let lFromRed:number   = (pFrom & 0xFF0000) >> 16;
+		let lFromGreen:number = (pFrom & 0x00FF00) >> 8;
+		let lFromBlue:number  = (pFrom & 0x0000FF);
+
+		let lToRed:number   = (pTo & 0xFF0000) >> 16;
+		let lToGreen:number = (pTo & 0x00FF00) >> 8;
+		let lToBlue:number  = (pTo & 0x0000FF);
+
+		let lResultRed:number   = lFromRed   + pCoeff * (lToRed   - lFromRed);
+		let lResultGreen:number = lFromGreen + pCoeff * (lToGreen - lFromGreen);
+		let lResultBlue:number  = lFromBlue  + pCoeff * (lToBlue  - lFromBlue);
+
+  		return (lResultRed << 16) + (lResultGreen << 8) + (lResultBlue | 0);
 	}
 	
     /**
-	 * Linear interpolation between pMin and pMax using pCoeff factor
-     * @param {number} pMin
-     * @param {number} pMax
+	 * Linear interpolation between pFrom and pTo using pCoeff factor
+     * @param {number} pFrom
+     * @param {number} pTo
      * @param {number} pCoeff
      * @return {number}
      */
-	public static lerpUnclamped(pMin:number, pMax:number, pCoeff:number):number {
-		return pCoeff * (pMax - pMin) + pMin;
+	public static lerpUnclamped(pFrom:number, pTo:number, pCoeff:number):number {
+		return pCoeff * (pTo - pFrom) + pFrom;
 	}
     
     /**
@@ -76,23 +100,23 @@ export class MathTools
 	}
     
 	/**
-	 * Linear interpolation between pA and pB using distance pDistance
-	 * @param {number} pA
-	 * @param {number} pB
+	 * Linear interpolation between pFrom and pTo using distance pDistance
+	 * @param {number} pFrom
+	 * @param {number} pTo
 	 * @param {number} pDistance
 	 * @return {number}
 	 */
-    public static moveTowards(pA:number, pB:number, pDistance:number):number {
+    public static moveTowards(pFrom:number, pTo:number, pDistance:number):number {
         pDistance = Math.abs(pDistance);
         
-        if (Math.abs(pB - pA) < pDistance){
-            return pB;
+        if (Math.abs(pTo - pFrom) < pDistance){
+            return pTo;
         }
         
-        if (pB > pA){
-            return pA + pDistance;
+        if (pTo > pFrom){
+            return pFrom + pDistance;
         } else
-            return pA - pDistance;
+            return pFrom - pDistance;
     }
     
 	/**
