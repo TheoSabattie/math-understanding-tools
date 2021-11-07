@@ -130,4 +130,12 @@ export class MathTools
         let lPower = Math.pow(10, pNDigit);
         return Math.round(pNumber * lPower) / lPower;
     }
+
+	public static inverseLerp(pValue:number, pA:number, pB:number):number{
+		return (pValue - pA) / (pB - pA);
+	}
+	
+	public static remap(pValue:number, pFromA:number, pFromB:number, pToA:number, pToB:number){
+		return MathTools.lerp(pToA, pToB, MathTools.inverseLerp(pValue, pFromA, pFromB));
+	}
 }
