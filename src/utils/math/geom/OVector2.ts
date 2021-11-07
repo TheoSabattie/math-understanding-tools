@@ -217,6 +217,14 @@ export class OVector2 extends EventEmitter<EventTypes>
 		return new OVector2(pVector.x, pVector.y).normalize(pMagnitude);
 	}
 
+	public static get one():OVector2 {
+		return new OVector2(1,1);
+	}
+
+	public static get zero():OVector2 {
+		return new OVector2(0,0);
+	}
+
 	/**
 	 * Scales the line segment between (0,0) and the current vector to a set length. Then dispatch EventTypes.CHANGE event.
 	 * @param pMagnitude The scaling value. For example, if the current vector is (0,5), 
