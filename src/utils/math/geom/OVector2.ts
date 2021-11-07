@@ -352,4 +352,8 @@ export class OVector2 extends EventEmitter<EventTypes>
     public static from(pPoint:Point):OVector2 {
         return new OVector2(pPoint.x, pPoint.y);
     }
+
+	public static remap(pValue:number, pFromA:number, pFromB:number, pToA:Point, pToB:Point):OVector2 {
+		return OVector2.lerp(pToA, pToB, MathTools.inverseLerp(pValue, pFromA, pFromB));
+	}
 }
