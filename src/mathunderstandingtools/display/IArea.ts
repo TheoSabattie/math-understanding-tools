@@ -5,4 +5,5 @@ export interface IArea {
     get parent(): IArea | null;
     get container(): Container;
     get rectTransform(): ORectTransform;
+    destroy(): void;
 }

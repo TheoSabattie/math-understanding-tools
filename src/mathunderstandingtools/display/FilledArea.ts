@@ -125,4 +125,9 @@ export class FilledArea extends Area {
     protected _onPropertyChanged(){
         this.scheduleDraw();
     }
+
+    override destroy():void{
+        this._graphics.destroy();
+        super.destroy();
+    }
 }

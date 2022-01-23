@@ -31,4 +31,9 @@ export class TextArea extends Area {
         super._draw();
         this._text.anchor.set(this.rectTransform.pivot.x, this.rectTransform.pivot.y);
     }
+
+    override destroy():void {
+        this._text.destroy();
+        super.destroy();
+    }
 }

@@ -21,4 +21,6 @@ export class RootArea implements IArea {
     public get parent(): IArea | null {
         return null;
     }
+
+    public destroy(): void {}
 }

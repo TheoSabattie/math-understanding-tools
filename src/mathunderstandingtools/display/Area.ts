@@ -60,6 +60,13 @@ export class Area implements IArea {
         }
     }
 
+    public destroy(): void {
+        if (this._isListeningNextFrame) UpdateService.remove(this._nextFrame);
+
+        this.parent = null;
+        this.container.destroy();
+    }
+
     private _nextFrame = (): void => {
         this._isListeningNextFrame = false;
         UpdateService.remove(this._nextFrame);
