@@ -8,6 +8,7 @@ export class RootArea implements IArea {
 
     public constructor(pRootContainer: Container) {
         this._container = pRootContainer;
+        this._rectTransform.anchorMax.setTo(1,1);
     }
 
     public get container(): Container {
