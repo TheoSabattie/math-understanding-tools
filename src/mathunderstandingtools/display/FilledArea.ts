@@ -1,7 +1,10 @@
 import { Area } from "./Area";
 import { Graphics } from "@pixi/graphics";
 import { IArea } from "./IArea";
-import { EventTypes, OLineStyle, OFillStyle, Point, OVector2 } from "src";
+import { OFillStyle } from "../graphics/OFillStyle";
+import { OLineStyle } from "../graphics/OLineStyle";
+import { EventTypes } from "../../utils/events/EventTypes";
+import { OVector2, Point } from "../../utils/math/geom/OVector2";
 
 const DEFAULT_FILL_STYLE:OFillStyle = new OFillStyle();
 const DEFAULT_LINE_STYLE:OLineStyle = <OLineStyle>new OLineStyle().setWidth(5).setColor(0xFFFFFF);
