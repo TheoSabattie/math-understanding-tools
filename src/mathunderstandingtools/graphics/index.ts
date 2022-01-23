@@ -11,7 +11,6 @@ export { GraphicSquare } from "./GraphicSquare";
 export { GraphicText } from "./GraphicText";
 export { GraphicVector } from "./GraphicVector";
 export { MathMap } from "./MathMap";
-export { MathMapWindow } from "./MathMapWindow";
 export { OLineStyle } from "./OLineStyle";
+export { OFillStyle } from "./OFillStyle";
 export { OStyle } from "./OStyle";
-export { Window } from "./Window";

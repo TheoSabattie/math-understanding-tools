@@ -1,67 +1,41 @@
-import { Container, Graphics } from "pixi.js";
-import { EventTypes, UpdateService } from "../../utils";
-import { OFillStyle } from "./OFillStyle";
-import { OLineStyle } from "./OLineStyle";
+import { Area } from "./Area";
+import { Graphics } from "@pixi/graphics";
+import { IArea } from "./IArea";
+import { EventTypes, OLineStyle, OFillStyle, Point, OVector2 } from "src";
 
-const DEFAULT_LINE_STYLE:OLineStyle = <OLineStyle>new OLineStyle().setWidth(3).setColor(0xFFFFFF);
-const DEFAULT_FILL_STYLE:OFillStyle = new OFillStyle().setColor(0xFFFFFF);
+const DEFAULT_FILL_STYLE:OFillStyle = new OFillStyle();
+const DEFAULT_LINE_STYLE:OLineStyle = <OLineStyle>new OLineStyle().setWidth(5).setColor(0xFFFFFF);
 
-/**
- * Base class for drawing
- */
-export abstract class Graphic 
-{
-    public static get defaultLineStyle():OLineStyle {
-        return DEFAULT_LINE_STYLE;
-    }
-    
+export class FilledArea extends Area {
     public static get defaultFillStyle():OFillStyle {
         return DEFAULT_FILL_STYLE;
     }
     
-    private _graphics:Graphics;
+    public static get defaultLineStyle():OLineStyle {
+        return DEFAULT_LINE_STYLE;
+    }
+
     private _lineStyle:OLineStyle|null = null;
     private _fillStyle:OFillStyle|null = null;
-    private _isListeningNextFrame:boolean;
     private _usedLineStyle:OLineStyle|null = null;
     private _usedFillStyle:OFillStyle|null = null;
-    private _cellSize:number;
+    private _graphics:Graphics = new Graphics();
 
-	/**
-	 * Instanciate by giving container (parent).
-	 * <p>The objet will automatically add itself as child</p>
-	 * @param pParent
-	 */
-    public constructor(pParent:Container) 
+    public constructor(pParent:IArea){
+        super(pParent);
+        this.container.addChild(this._graphics);
+    }
+
+    public get defaultFillStyle():OFillStyle 
     {
-        this._graphics = new Graphics();
-        this.parent    = pParent;
-
-        this._isListeningNextFrame = false;
-        this._cellSize = 1;
-        this.scheduleDraw();
+        return FilledArea.defaultFillStyle;
     }
     
-    public get parent():Container{
-        return this._graphics.parent;
+    public get defaultLineStyle():OLineStyle
+    {
+        return FilledArea.defaultLineStyle;
     }
 
-    public set parent(pContainer:Container){
-        pContainer.addChild(this._graphics);
-    }
-
-    protected get graphics():Graphics{
-        return this._graphics;
-    }
-
-    public get defaultLineStyle():OLineStyle {
-        return Graphic.defaultLineStyle;
-    }
-    
-    public get defaultFillStyle():OFillStyle {
-        return Graphic.defaultFillStyle;
-    }
-    
     public get fillStyle():OFillStyle {
         if (this._fillStyle == null){
             this._fillStyle = this.defaultFillStyle.clone();
@@ -131,60 +105,21 @@ export abstract class Graphic
         this._usedLineStyle = pValue;
         this._usedLineStyle.addListener(EventTypes.CHANGE, this._onPropertyChanged, this);
     }
-    
-    protected _onPropertyChanged():void
-    {
-        this.scheduleDraw();
-    }
-    
-	/**
-	 * Shedule draw for next frame.
-	 */
-    public scheduleDraw():void {
-        if (!this._isListeningNextFrame){
-            this._isListeningNextFrame = true;
-            UpdateService.add(this._nextFrame);
-        }
-    }
-    
-    protected _nextFrame = ():void=> 
-    {
-        this._isListeningNextFrame = false;
-        UpdateService.remove(this._nextFrame);
-        this._draw();
-    }
-    
-	/**
-	 * Draw immediately.
-	 */
-    protected _draw():void
-    {
+
+    override _draw():void {
+        let lRect = this.rectTransform.rect;
+        let lTopLeft:Point     = this.container.toLocal(lRect.min);
+        let lBottomRight:Point = this.container.toLocal(lRect.max);
+        let lSize              = OVector2.substract(lBottomRight, lTopLeft);
+        
         this._graphics.clear();
-        this._getUsedLineStyle().applyToGraphics(this._graphics);
-    }
-    
-	/**
-	 * Begin fill using fillColor and fillAlpha.
-	 * @see fillColor
-	 * @see fillAlpha
-	 */
-    protected _beginFill():void {
         this._getUsedFillStyle().applyToGraphics(this._graphics);
+        this._getUsedLineStyle().applyToGraphics(this._graphics);
+        this._graphics.drawRect(lTopLeft.x, lTopLeft.y, lSize.x, lSize.y);
+        this._graphics.endFill()
     }
-    
-	/**
-	 * Determine the cell size, impacting the graphic scale.
-	 * <p>Modification will automatically invoke scheduleDraw method</p>
-	 * @see scheduleDraw
-	 */
-    public get cellSize():number
-    {
-        return this._cellSize;
-    }
-    
-    public set cellSize(pValue:number) 
-    {
-        this._cellSize = pValue;
+
+    protected _onPropertyChanged(){
         this.scheduleDraw();
     }
 }
