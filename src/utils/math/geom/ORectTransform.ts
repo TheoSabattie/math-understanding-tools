@@ -20,7 +20,7 @@ export class ORectTransform extends EventEmitter<EventTypes>
     protected _anchorMax:OVector2         = new OVector2();
     protected _anchoredPosition:OVector2  = new OVector2();
     protected _sizeDelta:OVector2         = new OVector2();
-    protected _pivot:OVector2             = new OVector2();
+    protected _pivot:OVector2             = new OVector2(.5,.5);
     protected _parent:ORectTransform|null = null;
 
     public constructor() 
