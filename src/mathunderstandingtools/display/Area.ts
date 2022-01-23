@@ -27,6 +27,13 @@ export class Area implements IArea {
     public set parent(pValue: IArea | null) {
         this._parent = pValue;
         this._rectTransform.parent = pValue == null ? null : pValue.rectTransform;
+
+        if (pValue != null) {
+            pValue.container.addChild(this._container);
+        } else if (this.container.parent != null) {
+            this.container.parent.removeChild(this.container);
+        }
+
         this._onPropertyChange();
     }
 
