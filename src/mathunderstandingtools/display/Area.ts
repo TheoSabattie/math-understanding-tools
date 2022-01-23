@@ -61,9 +61,8 @@ export class Area implements IArea {
     }
 
     public destroy(): void {
-        if (this._isListeningNextFrame) UpdateService.remove(this._nextFrame);
-
         this.parent = null;
+        UpdateService.remove(this._nextFrame);
         this.container.destroy();
     }
 
