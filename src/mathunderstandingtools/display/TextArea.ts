@@ -5,9 +5,19 @@ import { IArea } from "./IArea";
 export class TextArea extends Area {
     private _text:Text;
 
+    private static _defaultStyle:TextStyle | Partial<TextStyle> = new Text("").style;
+
+    public static get defaultStyle():TextStyle | Partial<TextStyle> {
+        return TextArea._defaultStyle;
+    }
+
+    public static set defaultStyle(pValue:TextStyle | Partial<TextStyle>) {
+        TextArea._defaultStyle = pValue;
+    }
+
     public constructor(pParent:IArea, pText:string){
         super(pParent);
-        this._text = new Text(pText);
+        this._text = new Text(pText, TextArea.defaultStyle);
         this.container.addChild(this._text);
     }
 
